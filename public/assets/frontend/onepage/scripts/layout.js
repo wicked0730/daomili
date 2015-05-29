@@ -226,7 +226,7 @@ var Layout = function () {
             handlePortfolioSorting();
             handleFancybox();
             handleMobiToggler();
-            handleTwitter();
+            //handleTwitter();
             valignCenterMessage();
             valignCenterPortfolio();
             handleTheme();
