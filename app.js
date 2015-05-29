@@ -10,6 +10,14 @@ var users = require('./routes/users');
 
 var app = express();
 
+global.logger = require("./utils/logger.js");
+global.moment = require('moment');
+global.moment.locale('zh-cn');
+global.DB = require("./utils/dbutil.js").Instance();
+
+DB.define({key:'User',name:'DML_USER',fields:['ID','CREATEDATE','CREATOR','LASTUPTDATE','LASTUPTUSER','VERSION','EMAIL','FULLNAME','IDCARD','MOBILE','PASSWORD','PHONE','SEX','USERNAME','USERSTATUS','STATUS','ORGCODE','RAMARK','DEPARTMENT','AGE']});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
