@@ -218,8 +218,8 @@ var Layout = function () {
             //handlePromoBlock();
             handleParallax();
             handleScrolling();
-            //handleNavItemCurrent();
-            handleHeaderPosition();
+            handleNavItemCurrent();
+            //handleHeaderPosition();
             handleBootstrap();
             handleCounter();
             handleGo2Top();
