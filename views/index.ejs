@@ -48,7 +48,7 @@
   <link href="/assets/frontend/onepage/css/custom.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css"/>
-
+  <link href="/assets/global/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 
   <!-- Theme styles END -->
   <style>
@@ -60,6 +60,51 @@
     }
     .dropdown-menu {
       border-radius: 4px !important;
+    }
+    .btn-default {
+      background: white;
+      color: #000;
+    }
+    .btn-default:hover,
+    .btn-default:focus,
+    .btn-default:active {
+      border: 1px solid #A8AEB3;
+      color: #000;
+      background: #64AED9;
+      padding: 6px 13px;
+    }
+    .btn-default > i {
+      color: #000;
+    }
+    .input-lg {
+      height: 46px !important;
+    }
+    .header-navigation {
+      font-size: 14px;
+    }
+    .noborder {
+      border: 0;
+    }
+    .noborder:hover,
+    .noborder:focus,
+    .noborder:active{
+      background: transparent;
+    }
+    .info_ {
+      margin-top: 200px;
+      font-size: 20px;
+      font-weight: 900;
+      padding: 5px;
+      text-align: right;
+      display: inline-block;
+      width: 624px;
+    }
+    .searchDiv {
+      background-color: #F6F6F6;
+      padding: 20px;
+      display: inline-block;
+      border-radius: 6px !important;
+      margin-bottom: 265px
     }
   </style>
 </head>
@@ -74,18 +119,51 @@
       <div class="col-md-2 col-sm-2">
         <a class="scroll" href="#about" style="float: left;padding-top: 5px"><img src="/images/logo.png" alt="Metronic One Page"></a>
       </div>
+
       <!-- Logo END -->
       <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
       <!-- Navigation BEGIN -->
-      <div class="col-md-10 pull-right">
+      <div class="col-md-4" style="margin-top: 10px; border-left: 1px #5C5C5C solid">
+        <div class="btn-group">
+          <button class="btn btn-default btn-sm dropdown-toggle noborder" style="border: 0" type="button" data-toggle="dropdown" aria-expanded="false">
+            广州 <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" style="min-width: 68px">
+            <li>
+              <a href="javascript:;">
+                广州 </a>
+            </li>
+          </ul>
+        </div>
+        <div class="btn-group">
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs ">
+            <li class="active">
+              <a href="#tab_15_1" data-toggle="tab">
+                首页 </a>
+            </li>
+            <li>
+              <a href="#tab_15_2" data-toggle="tab">
+                开放项目 </a>
+            </li>
+            <li>
+              <a href="#tab_15_3" data-toggle="tab">
+                企业委托 </a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="col-md-6 pull-right">
         <ul class="header-navigation">
-          <li class="current"><a href="#about">About</a></li>
+          <!--<li class="current"><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#benefits">Benefits</a></li>
-          <li><a href="#prices">Pricing</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#prices">Pricing</a></li>-->
+          <li><a href="#"><i class="fa fa-user"></i>注册/登录</a></li>
+          <li><a href="#"><i class="fa fa-list-alt"></i>报名清单</a></li>
         </ul>
       </div>
       <!-- Navigation END -->
@@ -96,76 +174,44 @@
 <!-- About block BEGIN -->
 <div class="about-block content content-center" id="about">
   <div class="container">
-    <h2><strong>Metronic</strong> Inspires</h2>
-    <div class="btn-group">
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="area" aria-expanded="false">
-        区域 <i class="fa fa-angle-down"></i>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="javascript:;">
-             </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            海珠区 </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            Something else here </a>
-        </li>
-        <li class="divider">
-        </li>
-        <li>
-          <a href="javascript:;">
-            Separated link </a>
-        </li>
-      </ul>
+    <!--<h2><strong>Metronic</strong> Inspires</h2>-->
+    <div class="info_">
+      <div class="btn-group form-group-lg">
+      [广州]近5天新增项目<font style="color: red">10</font>个,新增会员<font style="color: green">200</font>个
+      </div>
+    </div>
+    <div class="searchDiv">
+      <div class="btn-group form-group-lg">
+        <select class="selectpicker area" multiple>
+          <option>天河区</option>
+          <option>海珠区</option>
+          <option>Relish</option>
+        </select>
+      </div>
+      <div class="btn-group form-group-lg">
+        <select class="selectpicker paid" multiple>
+          <option>100元以内</option>
+          <option>100元-200元</option>
+          <option>200元以上</option>
+        </select>
+      </div>
+      <!--<div class="btn-group">
+        <div class="input-group input-large date-picker input-daterange" data-date-format="yyyy-mm-dd">
+          <input type="text" class="form-control" name="from">
+                                                  <span class="input-group-addon">
+                                                  至 </span>
+          <input type="text" class="form-control" name="to">
+        </div>
+      </div>-->
 
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-        报酬 <i class="fa fa-angle-down"></i>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="javascript:;">
-            100元以内 </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            100元-200元 </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            200元以上 </a>
-        </li>
-      </ul>
-      <div class="input-group input-large date-picker input-daterange" data-date-format="yyyy-mm-dd">
-        <input type="text" class="form-control" name="from">
-												<span class="input-group-addon">
-												至 </span>
-        <input type="text" class="form-control" name="to">
+      <div class="btn-group">
+        <button type="button" class="btn red btn-lg" style="margin-right: 5px">搜索</button>
+        <button type="button" class="btn green-meadow btn-lg">猜你喜欢</button>
       </div>
     </div>
-    <div>
-    <div class="btn-group" style="padding: 5px">
-      <button type="button" class="btn blue-madison" style="margin-right: 5px">搜索</button>
-      <button type="button" class="btn green-meadow">猜你喜欢</button>
-    </div>
-    <div class="ab-trio">
-      <img src="/assets/frontend/onepage/img/trio.png" alt="" class="img-responsive">
-      <div class="ab-cirlce ab-cirle-blue">
-        <i class="fa fa-code"></i>
-        <strong>Clean Code</strong>
-      </div>
-      <div class="ab-cirlce ab-cirle-red">
-        <i class="fa fa-gift"></i>
-        <strong>Huge Updates</strong>
-      </div>
-      <div class="ab-cirlce ab-cirle-green">
-        <i class="fa fa-mobile"></i>
-        <strong>Responsive</strong>
-      </div>
-    </div>
+  </div>
+
+
   </div>
 </div>
 <!-- About block END -->
@@ -784,10 +830,12 @@
 <script src="/assets/global/plugins/jquery.easing.js"></script>
 <script src="/assets/global/plugins/jquery.parallax.js"></script>
 <script src="/assets/global/plugins/jquery.scrollTo.min.js"></script>
-<!--<script src="/assets/frontend/onepage/scripts/jquery.nav.js"></script>-->
+<script src="/assets/frontend/onepage/scripts/jquery.nav.js"></script>
 <!-- Core plugins END (required only for current page) -->
 <script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.js"></script>
 
 
 
@@ -797,15 +845,38 @@
 <script>
   $(document).ready(function() {
     Layout.init();
-    if (jQuery().datepicker) {
-      $('.date-picker').datepicker({
-        rtl: false,
-        orientation: "left",
-        autoclose: true,
-        language: 'zh-CN'
-      });
-      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
-    }
+    $.fn.selectpicker.defaults = {
+      noneSelectedText: '区域',
+      noneResultsText: '没有找到匹配项',
+      countSelectedText: '选中{1}中的{0}项',
+      maxOptionsText: ['超出限制 (最多选择{n}项)', '组选择超出限制(最多选择{n}组)'],
+      multipleSeparator: ', '
+    };
+    $('.selectpicker.area').selectpicker();
+    $.fn.selectpicker.defaults = {
+      noneSelectedText: '报酬',
+      noneResultsText: '没有找到匹配项',
+      countSelectedText: '选中{1}中的{0}项',
+      maxOptionsText: ['超出限制 (最多选择{n}项)', '组选择超出限制(最多选择{n}组)'],
+      multipleSeparator: ', '
+    };
+    $('.selectpicker .paid').selectpicker({
+      callback: function() {
+        alert('show!');
+      }
+    });
+
+//    if (jQuery().datepicker) {
+//      $('.date-picker').datepicker({
+//        rtl: false,
+//        orientation: "left",
+//        autoclose: true,
+//        language: 'zh-CN'
+//      });
+//      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+//    }
+//    console.log($('.searchDiv').width());
+//    $('.info_').width($('.searchDiv').width());
   });
 </script>
 <!-- Global js END -->
