@@ -4,6 +4,7 @@
 //分页对象
 var util=require("util");
 
+
 function Page(config) {
     if(!config){
         config={};
