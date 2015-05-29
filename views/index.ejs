@@ -82,6 +82,30 @@
     .header-navigation {
       font-size: 14px;
     }
+    .noborder {
+      border: 0;
+    }
+    .noborder:hover,
+    .noborder:focus,
+    .noborder:active{
+      background: transparent;
+    }
+    .info_ {
+      margin-top: 200px;
+      font-size: 20px;
+      font-weight: 900;
+      padding: 5px;
+      text-align: right;
+      display: inline-block;
+      width: 624px;
+    }
+    .searchDiv {
+      background-color: #F6F6F6;
+      padding: 20px;
+      display: inline-block;
+      border-radius: 6px !important;
+      margin-bottom: 265px
+    }
   </style>
 </head>
 <!--DOC: menu-always-on-top class to the body element to set menu on top -->
@@ -95,10 +119,42 @@
       <div class="col-md-2 col-sm-2">
         <a class="scroll" href="#about" style="float: left;padding-top: 5px"><img src="/images/logo.png" alt="Metronic One Page"></a>
       </div>
+
       <!-- Logo END -->
       <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
       <!-- Navigation BEGIN -->
-      <div class="col-md-10 pull-right">
+      <div class="col-md-4" style="margin-top: 10px; border-left: 1px #5C5C5C solid">
+        <div class="btn-group">
+          <button class="btn btn-default btn-sm dropdown-toggle noborder" style="border: 0" type="button" data-toggle="dropdown" aria-expanded="false">
+            广州 <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu" role="menu" style="min-width: 68px">
+            <li>
+              <a href="javascript:;">
+                广州 </a>
+            </li>
+          </ul>
+        </div>
+        <div class="btn-group">
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs ">
+            <li class="active">
+              <a href="#tab_15_1" data-toggle="tab">
+                首页 </a>
+            </li>
+            <li>
+              <a href="#tab_15_2" data-toggle="tab">
+                开放项目 </a>
+            </li>
+            <li>
+              <a href="#tab_15_3" data-toggle="tab">
+                企业委托 </a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="col-md-6 pull-right">
         <ul class="header-navigation">
           <!--<li class="current"><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
@@ -107,6 +163,7 @@
           <li><a href="#benefits">Benefits</a></li>
           <li><a href="#prices">Pricing</a></li>-->
           <li><a href="#"><i class="fa fa-user"></i>注册/登录</a></li>
+          <li><a href="#"><i class="fa fa-list-alt"></i>报名清单</a></li>
         </ul>
       </div>
       <!-- Navigation END -->
@@ -118,7 +175,12 @@
 <div class="about-block content content-center" id="about">
   <div class="container">
     <!--<h2><strong>Metronic</strong> Inspires</h2>-->
-    <div style="background-color: #F6F6F6; padding: 20px;display: inline-block;border-radius: 6px !important;margin: 265px 0">
+    <div class="info_">
+      <div class="btn-group form-group-lg">
+      [广州]近5天新增项目<font style="color: red">10</font>个,新增会员<font style="color: green">200</font>个
+      </div>
+    </div>
+    <div class="searchDiv">
       <div class="btn-group form-group-lg">
         <select class="selectpicker area" multiple>
           <option>天河区</option>
@@ -143,11 +205,12 @@
       </div>-->
 
       <div class="btn-group">
-        <button type="button" class="btn blue-madison btn-lg" style="margin-right: 5px">搜索</button>
+        <button type="button" class="btn red btn-lg" style="margin-right: 5px">搜索</button>
         <button type="button" class="btn green-meadow btn-lg">猜你喜欢</button>
       </div>
     </div>
-    </div>
+  </div>
+
 
   </div>
 </div>
@@ -797,17 +860,23 @@
       maxOptionsText: ['超出限制 (最多选择{n}项)', '组选择超出限制(最多选择{n}组)'],
       multipleSeparator: ', '
     };
-    $('.selectpicker .paid').selectpicker('mobile');
+    $('.selectpicker .paid').selectpicker({
+      callback: function() {
+        alert('show!');
+      }
+    });
 
-    if (jQuery().datepicker) {
-      $('.date-picker').datepicker({
-        rtl: false,
-        orientation: "left",
-        autoclose: true,
-        language: 'zh-CN'
-      });
-      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
-    }
+//    if (jQuery().datepicker) {
+//      $('.date-picker').datepicker({
+//        rtl: false,
+//        orientation: "left",
+//        autoclose: true,
+//        language: 'zh-CN'
+//      });
+//      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+//    }
+//    console.log($('.searchDiv').width());
+//    $('.info_').width($('.searchDiv').width());
   });
 </script>
 <!-- Global js END -->
