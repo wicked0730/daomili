@@ -97,8 +97,10 @@
 
 <script>
     function submitRegistered(){
-        alert($('input:radio[name=SEX]:checked').val());
-        return;
-        $('#registeredForm').submit();
+        var sex = '女';
+        if($('#sex1:checked').val()=='on')
+            sex = '男';
+
+        $('#registeredForm').attr("action", "/users/registered?sex="+sex).submit();
     }
 </script>

@@ -11,6 +11,7 @@ router.all('/registered', function(req, res, next) {
 
     var User = DB.get("User");
     var table = req.body;
+    return;
     User.insert(table,function(err,users){
         console.log(users);
     })
