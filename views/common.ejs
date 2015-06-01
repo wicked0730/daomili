@@ -1,0 +1,20 @@
+<script>
+    function notific8(obj,errText,time){
+        var settings = {
+                    theme: "teal",
+                    sticky: false,
+                    horizontalEdge: "top",
+                    verticalEdge: "right"
+                },
+                $button = $(obj);
+        $.notific8('zindex', 11500);
+        $.notific8($.trim(errText), settings);
+
+        $button.attr('disabled', 'disabled');
+
+        setTimeout(function() {
+            $button.removeAttr('disabled');
+        }, time);
+    }
+
+</script>

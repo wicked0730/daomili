@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="registeredDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,21 +8,30 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-horizontal margin-bottom-40" role="form">
+                <form class="form-horizontal margin-bottom-40" method="post" role="form" id="registeredForm" action="/users/registered">
                     <div class="form-group form-md-line-input">
                         <label for="phoneNumber" class="col-md-3 control-label">手机</label>
                         <div class="col-md-6">
-                            <input type="email" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="">
-                            <span class="help-block">请正确输入11位手机号码</span>
+                            <input type="email" class="form-control" id="mobile" name="MOBILE" placeholder="" maxlength="11" >
+                            <span class="help-block">请正确输入11位的手机号码</span>
                             <div class="form-control-focus">
                             </div>
                         </div>
                     </div>
                     <div class="form-group form-md-line-input">
-                        <label for="pwd" class="col-md-3 control-label">密码</label>
+                        <label for="password" class="col-md-3 control-label">密码</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="">
-                            <span class="help-block">请输入6位或以上的密码</span>
+                            <input type="password" class="form-control" id="password" name="PASSWORD" placeholder="" maxlength="16" >
+                            <span class="help-block">6~16个字符，区分大小写</span>
+                            <div class="form-control-focus">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <label for="password2" class="col-md-3 control-label">确认密码</label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" id="password2" name="PASSWORD2" placeholder="" maxlength="16" >
+                            <span class="help-block">请再次填写密码</span>
                             <div class="form-control-focus">
                             </div>
                         </div>
@@ -29,10 +39,9 @@
                     <div class="form-group form-md-line-input">
                         <label for="age" class="col-md-3 control-label">年龄段</label>
                         <div class="col-md-6">
-                            <select class="form-control" id="age" name="age">
-                                <option value=""></option>
-                                <option value="18-25">18-25</option>
-                                <option value="16-30">16-30</option>
+                            <select class="form-control" id="age" name="AGE">
+                                <option value="18-25" selected>18-25</option>
+                                <option value="26-30">26-30</option>
                                 <option value="31-35">31-35</option>
                                 <option value="36-40">36-40</option>
                                 <option value="41-45">41-45</option>
@@ -44,6 +53,7 @@
                                 <option value="71-75">71-75</option>
                                 <option value="75-80">75-80</option>
                             </select>
+                            <span class="help-block">请正确填写，以便推荐任务</span>
                             <div class="form-control-focus">
                             </div>
                         </div>
@@ -53,16 +63,16 @@
                         <label for="sex" class="col-md-3 control-label">性别</label>
                         <div class="md-radio-inline col-md-3">
                             <div class="md-radio">
-                                <input type="radio" id="sex1" name="sex" class="md-radiobtn">
-                                <label for="radio14">
+                                <input type="radio" id="sex1" name="SEX" class="md-radiobtn">
+                                <label for="sex1">
                                     <span></span>
                                     <span class="check"></span>
                                     <span class="box"></span>
                                     男 </label>
                             </div>
                             <div class="md-radio has-error ">
-                                <input type="radio" id="sex2" name="sex" class="md-radiobtn" checked>
-                                <label for="radio15">
+                                <input type="radio" id="sex2" name="SEX" class="md-radiobtn" checked>
+                                <label for="sex2">
                                     <span></span>
                                     <span class="check"></span>
                                     <span class="box"></span>
@@ -75,7 +85,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn blue">注册</button>
+                <button type="button" class="btn blue" id="registeredBtn">注册</button>
                 <button type="button" class="btn default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -83,3 +93,80 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<% include common.ejs %>
+<script>
+    jQuery(document).ready(function() {
+
+    });
+    function showDialog(){
+        $('#registeredDialog #registeredForm')[0].reset();
+        $('#registeredDialog').modal("show");
+    }
+    $('#registeredDialog #registeredBtn').click(function(event) {
+        //手机验证
+        var validation = true;
+        if($('#mobile').val()==null || $('#mobile').val().trim()==''){
+            $('#mobile').focus();
+            notific8(this,"手机号码不能为空!",500);
+            return;
+        }
+        if($('#mobile').val().length != 11){
+            $('#mobile').focus();
+            notific8(this,"请填写11位的手机号码!",500);
+            return;
+        }
+        var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+        if(!myreg.test($('#mobile').val()))
+        {
+            $('#mobile').focus();
+            notific8(this,'请输入有效的11位手机号码！',500);
+            return;
+        }
+        //密码验证
+        if($('#password').val()==null || $('#password').val().trim()==''){
+            $('#password').focus();
+            notific8(this,"密码不能为空!",500);
+            return;
+        }
+        if($('#password').val().length < 6 || $('#password').val().length > 16){
+            $('#password').focus();
+            notific8(this,"密码为6~16个字符!",500);
+            return;
+        }
+        if($('#password').val() != $('#password2').val()){
+            $('#password2').focus();
+            notific8(this,"两次填写的密码不一致",500);
+            return;
+        }else{
+            $.ajax({
+                url : "/users/mobile",
+                method:"post",
+                data : {
+                    mobile:$('#mobile').val()
+                },
+                success : function(data){
+                    console.log(data);
+                    if(data>0){
+                        $('#mobile').focus();
+                        notific8(this,"此手机号码已经存在!",500);
+                        return;
+                    }else{
+                        var sex = '女';
+                        if($('#sex1:checked').val()=='on')
+                            sex = '男';
+                        var options = {
+                            url: "/users/registered",
+                            dataType: 'json',
+                            data: {sex: sex}, success: function (data) {
+                                $('#registeredDialog').modal("hide");
+                                notific8(this,"恭喜您注册成功！",500);
+                            }
+                        };
+                        $('#registeredForm').ajaxSubmit(options);
+                    }
+                }
+            });
+        }
+    });
+
+</script>

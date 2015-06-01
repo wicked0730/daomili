@@ -50,6 +50,7 @@
   <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css"/>
   <link href="/assets/global/plugins/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 
+  <% include header.ejs %>
   <!-- Theme styles END -->
   <style>
     .btn-lg {
@@ -110,7 +111,6 @@
 </head>
 <!--DOC: menu-always-on-top class to the body element to set menu on top -->
 <body>
-
 <!-- Header BEGIN -->
 <div class="header header-mobi-ext fixNav">
   <div class="container">
@@ -162,7 +162,7 @@
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#benefits">Benefits</a></li>
           <li><a href="#prices">Pricing</a></li>-->
-          <li><a href="#"><i class="fa fa-user"></i>注册/登录</a></li>
+          <li><a data-toggle="modal" href="javascript:showDialog();"><i class="fa fa-user"></i>注册/登录</a></li>
           <li><a href="#"><i class="fa fa-list-alt"></i>报名清单</a></li>
         </ul>
       </div>
@@ -789,7 +789,7 @@
     <div class="row">
       <!-- BEGIN COPYRIGHT -->
       <div class="col-md-6 col-sm-6">
-        <div class="copyright">2014 © Metronic One Page. ALL Rights Reserved.</div>
+        <div class="copyright">2015 © Metronic One Page. ALL Rights Reserved.</div>
       </div>
       <!-- END COPYRIGHT -->
       <!-- BEGIN SOCIAL ICONS -->
@@ -812,39 +812,14 @@
 <!-- END FOOTER -->
 <a href="#about" class="go2top scroll"><i class="fa fa-arrow-up"></i></a>
 <!--[if lt IE 9]>
-<script src="/assets/global/plugins/respond.min.js"></script>
-<![endif]-->
-<!-- Load JavaScripts at the bottom, because it will reduce page load time -->
-<!-- Core plugins BEGIN (For ALL pages) -->
-<script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- Core plugins END (For ALL pages) -->
-<!-- BEGIN RevolutionSlider -->
-<script src="/assets/global/plugins/slider-revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/slider-revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
-<script src="/assets/frontend/onepage/scripts/revo-ini.js" type="text/javascript"></script>
-<!-- END RevolutionSlider -->
-<!-- Core plugins BEGIN (required only for current page) -->
-<script src="/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script><!-- pop up -->
-<script src="/assets/global/plugins/jquery.easing.js"></script>
-<script src="/assets/global/plugins/jquery.parallax.js"></script>
-<script src="/assets/global/plugins/jquery.scrollTo.min.js"></script>
-<script src="/assets/frontend/onepage/scripts/jquery.nav.js"></script>
-<!-- Core plugins END (required only for current page) -->
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<% include footer.ejs %>
 
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.js"></script>
+<% include registered.ejs %>
 
-
-
-
-<!-- Global js BEGIN -->
-<script src="/assets/frontend/onepage/scripts/layout.js" type="text/javascript"></script>
 <script>
+
   $(document).ready(function() {
-    Layout.init();
+    //Layout.init();
     $.fn.selectpicker.defaults = {
       noneSelectedText: '区域',
       noneResultsText: '没有找到匹配项',
