@@ -10,11 +10,11 @@ var users = require('./routes/users');
 var search_index = require('./routes/search/index');
 
 var app = express();
+
 global.logger = require("./utils/logger.js");
 global.moment = require('moment');
 global.moment.locale('zh-cn');
 global.DB = require("./utils/dbutil.js").Instance();
-
 
 DB.define({key:'User',name:'DML_USER',fields:['ID','CREATEDATE','CREATOR','LASTUPTDATE','LASTUPTUSER','VERSION','EMAIL','FULLNAME','IDCARD','MOBILE','PASSWORD','PHONE','SEX','USERNAME','USERSTATUS','STATUS','ORGCODE','RAMARK','DEPARTMENT','AGE']});
 

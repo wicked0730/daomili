@@ -98,68 +98,68 @@
     jQuery(document).ready(function() {
 
     });
-    function showDialog(){
+    function showRegisteredDialog(){
         $('#registeredDialog #registeredForm')[0].reset();
         $('#registeredDialog').modal("show");
     }
     $('#registeredDialog #registeredBtn').click(function(event) {
         //手机验证
         var validation = true;
-        if($('#mobile').val()==null || $('#mobile').val().trim()==''){
-            $('#mobile').focus();
-            notific8(this,"手机号码不能为空!",500);
+        if($('#registeredForm #mobile').val()==null || $('#registeredForm #mobile').val().trim()==''){
+            $('#registeredForm #mobile').focus();
+            notific8(this,"手机号码不能为空!",3000);
             return;
         }
-        if($('#mobile').val().length != 11){
-            $('#mobile').focus();
-            notific8(this,"请填写11位的手机号码!",500);
+        if($('#registeredForm #mobile').val().length != 11){
+            $('#registeredForm #mobile').focus();
+            notific8(this,"请填写11位的手机号码!",3000);
             return;
         }
         var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
-        if(!myreg.test($('#mobile').val()))
+        if(!myreg.test($('#registeredForm #mobile').val()))
         {
             $('#mobile').focus();
-            notific8(this,'请输入有效的11位手机号码！',500);
+            notific8(this,'请输入有效的11位手机号码！',3000);
             return;
         }
         //密码验证
-        if($('#password').val()==null || $('#password').val().trim()==''){
-            $('#password').focus();
-            notific8(this,"密码不能为空!",500);
+        if($('#registeredForm #password').val()==null || $('#registeredForm #password').val().trim()==''){
+            $('#registeredForm #password').focus();
+            notific8(this,"密码不能为空!",3000);
             return;
         }
-        if($('#password').val().length < 6 || $('#password').val().length > 16){
-            $('#password').focus();
-            notific8(this,"密码为6~16个字符!",500);
+        if($('#registeredForm #password').val().length < 6 || $('#registeredForm #password').val().length > 16){
+            $('#registeredForm #password').focus();
+            notific8(this,"密码为6~16个字符!",3000);
             return;
         }
-        if($('#password').val() != $('#password2').val()){
-            $('#password2').focus();
-            notific8(this,"两次填写的密码不一致",500);
+        if($('#registeredForm #password').val() != $('#registeredForm #password2').val()){
+            $('#registeredForm #password2').focus();
+            notific8(this,"两次填写的密码不一致",3000);
             return;
         }else{
             $.ajax({
                 url : "/users/mobile",
                 method:"post",
                 data : {
-                    mobile:$('#mobile').val()
+                    mobile:$('#registeredForm #mobile').val()
                 },
                 success : function(data){
                     console.log(data);
                     if(data>0){
-                        $('#mobile').focus();
-                        notific8(this,"此手机号码已经存在!",500);
+                        $('#registeredForm #mobile').focus();
+                        notific8(this,"此手机号码已经存在!",3000);
                         return;
                     }else{
                         var sex = '女';
-                        if($('#sex1:checked').val()=='on')
+                        if($('#registeredForm #sex1:checked').val()=='on')
                             sex = '男';
                         var options = {
                             url: "/users/registered",
                             dataType: 'json',
                             data: {sex: sex}, success: function (data) {
                                 $('#registeredDialog').modal("hide");
-                                notific8(this,"恭喜您注册成功！",500);
+                                notific8(this,"恭喜您注册成功！",3000);
                             }
                         };
                         $('#registeredForm').ajaxSubmit(options);

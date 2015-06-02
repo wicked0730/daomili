@@ -1,10 +1,13 @@
 <script>
+
+    //右上角提示信息
     function notific8(obj,errText,time){
         var settings = {
                     theme: "teal",
                     sticky: false,
                     horizontalEdge: "top",
-                    verticalEdge: "right"
+                    verticalEdge: "right",
+                    life:time
                 },
                 $button = $(obj);
         $.notific8('zindex', 11500);
@@ -14,7 +17,7 @@
 
         setTimeout(function() {
             $button.removeAttr('disabled');
-        }, time);
+        }, 1000);
     }
 
 </script>
