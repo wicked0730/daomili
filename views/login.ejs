@@ -1,0 +1,185 @@
+
+<div class="modal fade" id="loginDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">用户登录</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal margin-bottom-40" method="post" role="form" id="loginForm" action="/users/login">
+                    <div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button>
+                        <p id="errorP">您的登录信息有误，请检查！</p>
+                    </div>
+                    <div class="alert alert-success display-hide">
+                        <button class="close" data-close="alert"></button>
+                        <p id="successP">Your form validation is successful!</p>
+                    </div>
+
+                    <div class="form-group form-md-line-input">
+                        <label for="phoneNumber" class="col-md-3 control-label">手机</label>
+                        <div class="col-md-6">
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <input type="text" class="form-control" id="mobile" name="MOBILE" placeholder="" maxlength="11" >
+                                <span class="help-block">请正确输入11位的手机号码</span>
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-md-line-input">
+                        <label for="password" class="col-md-3 control-label">密码</label>
+                        <div class="col-md-6">
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <input type="password" class="form-control" id="password" name="PASSWORD" placeholder="" maxlength="16" >
+                                <span class="help-block">6~16个字符，区分大小写</span>
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue" id="loginBtn">登录</button>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<% include common.ejs %>
+
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        loginValidation();
+    });
+    function showLoginDialog(){
+        $('#loginDialog #loginForm')[0].reset();
+        $('#loginDialog').modal("show");
+    }
+    $('#loginDialog #loginBtn').click(function(event) {
+        //手机验证
+        var validation = true;
+        if($('#loginForm #mobile').val()==null || $('#loginForm #mobile').val().trim()==''){
+            $('#loginForm #mobile').focus();
+            $('.alert-danger').show();
+            $('#errorP').html("手机号码不能为空!");
+//            notific8(this,"手机号码不能为空!",3000);
+            return;
+        }
+        if($('#loginForm #mobile').val().length != 11){
+            $('#mobile').focus();
+            $('.alert-danger').show();
+            $('#errorP').html("请填写11位的手机号码!");
+//            notific8(this,"请填写11位的手机号码!",3000);
+            return;
+        }
+        var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+        if(!myreg.test($('#loginForm #mobile').val()))
+        {
+            $('#mobile').focus();
+            $('.alert-danger').show();
+            $('#errorP').html("请输入有效的11位手机号码!");
+//            notific8(this,'请输入有效的11位手机号码！',3000);
+            return;
+        }
+        //密码验证
+        if($('#loginForm #password').val()==null || $('#loginForm #password').val().trim()==''){
+            $('#loginForm #password').focus();
+            $('.alert-danger').show();
+            $('#errorP').html("密码不能为空!");
+//            notific8(this,"密码不能为空!",3000);
+            return;
+        }
+        if($('#loginForm #password').val().length < 6 || $('#loginForm #password').val().length > 16){
+            $('#loginForm #password').focus()
+            $('.alert-danger').show();
+            $('#errorP').html("密码为6~16个字符!");
+//            notific8(this,"密码为6~16个字符!",3000);
+            return;
+        } else{
+            var options = {
+                url: "/users/login",
+                dataType: 'json',
+                data: {
+
+                }, success: function (data) {
+                    if(data == 0){
+                        $('.alert-danger').show();
+                        $('#errorP').html("用户名或密码有误，请重新输入!");
+//                        notific8(this,"用户名或密码有误，请重新输入！",3000);
+                        $('#loginForm #password').val('');
+                        $('#loginForm #password').focus();
+                        return;
+                    }
+                    $('#loginDialog').modal("hide");
+                    $('.alert-danger').hide();
+                    notific8(this,"欢迎"+$('#loginForm #mobile').val()+"回来！",3000);
+                }
+            };
+            $('#loginDialog #loginForm').ajaxSubmit(options);
+        }
+    });
+
+    var loginValidation = function() {
+        var form2 = $('#loginForm');
+        form2.resetForm();
+        var error2 = $('.alert-danger', form2);
+        var success2 = $('.alert-success', form2);
+
+        form2.validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",  // validate all fields including form hidden input
+            rules: {
+                MOBILE: {
+                    rangelength: [11,11],
+                    number:true,
+                    required: true
+                },
+                PASSWORD: {
+                    rangelength: [6,16],
+                    required: true
+                }
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit
+                error2.show();
+//                Metronic.scrollTo(error2, -200);
+            },
+            errorPlacement: function (error, element) { // render error placement for each input type
+                var icon = $(element).parent('.input-icon').children('i');
+                icon.removeClass('fa-check').addClass("fa-warning");
+                icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+
+            },
+            success: function (label, element) {
+                var icon = $(element).parent('.input-icon').children('i');
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                icon.removeClass("fa-warning").addClass("fa-check");
+            },
+            submitHandler: function (form) {
+                success2.show();
+                error2.hide();
+                form[0].submit(); // submit the form
+            }
+        });
+    }
+</script>
