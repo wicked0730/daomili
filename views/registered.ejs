@@ -8,31 +8,49 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-horizontal margin-bottom-40" method="post" role="form" id="registeredForm" action="/users/registered">
+                <form class="form-horizontal margin-bottom-40" method="post" role="form" id="registeredForm" action="">
+                    <div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button>
+                        <p id="errorP">您的注册信息有误，请检查！</p>
+                    </div>
+                    <div class="alert alert-success display-hide">
+                        <button class="close" data-close="alert"></button>
+                        <p id="successP">Your form validation is successful!</p>
+                    </div>
+
                     <div class="form-group form-md-line-input">
-                        <label for="phoneNumber" class="col-md-3 control-label">手机</label>
+                        <label for="mobile" class="col-md-3 control-label">手机</label>
                         <div class="col-md-6">
-                            <input type="email" class="form-control" id="mobile" name="MOBILE" placeholder="" maxlength="11" >
-                            <span class="help-block">请正确输入11位的手机号码</span>
-                            <div class="form-control-focus">
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <input type="text" class="form-control" id="mobile" name="MOBILE" placeholder="" maxlength="11" >
+                                <span class="help-block">请正确输入11位的手机号码</span>
+                                <div class="form-control-focus">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group form-md-line-input">
                         <label for="password" class="col-md-3 control-label">密码</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password" name="PASSWORD" placeholder="" maxlength="16" >
-                            <span class="help-block">6~16个字符，区分大小写</span>
-                            <div class="form-control-focus">
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <input type="password" class="form-control" id="password" name="PASSWORD" placeholder="" maxlength="16" >
+                                <span class="help-block">6~16个字符，区分大小写</span>
+                                <div class="form-control-focus">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group form-md-line-input">
                         <label for="password2" class="col-md-3 control-label">确认密码</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control" id="password2" name="PASSWORD2" placeholder="" maxlength="16" >
-                            <span class="help-block">请再次填写密码</span>
-                            <div class="form-control-focus">
+                            <div class="input-icon right">
+                                <i class="fa"></i>
+                                <input type="password" class="form-control" id="password2" name="PASSWORD2" placeholder="" maxlength="16" >
+                                <span class="help-block">请再次填写密码</span>
+                                <div class="form-control-focus">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +103,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn blue" id="registeredBtn">注册</button>
+                <button type="submit" class="btn blue" id="registeredBtn">注册</button>
                 <button type="button" class="btn default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -94,48 +112,68 @@
     <!-- /.modal-dialog -->
 </div>
 <% include common.ejs %>
+
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
 <script>
     jQuery(document).ready(function() {
-
+        registeredValidation();
     });
     function showRegisteredDialog(){
         $('#registeredDialog #registeredForm')[0].reset();
         $('#registeredDialog').modal("show");
     }
+
     $('#registeredDialog #registeredBtn').click(function(event) {
         //手机验证
+//        if($('#registeredForm').valid( )==false)
+//            return;
+
         var validation = true;
         if($('#registeredForm #mobile').val()==null || $('#registeredForm #mobile').val().trim()==''){
             $('#registeredForm #mobile').focus();
-            notific8(this,"手机号码不能为空!",3000);
+            $('.alert-danger').show();
+            $('#errorP').html("手机号码不能为空!");
+//            notific8(this,"手机号码不能为空!",3000);
             return;
         }
         if($('#registeredForm #mobile').val().length != 11){
             $('#registeredForm #mobile').focus();
-            notific8(this,"请填写11位的手机号码!",3000);
+            $('.alert-danger').show();
+            $('#errorP').html("请填写11位的手机号码!");
+//            notific8(this,"请填写11位的手机号码!",3000);
             return;
         }
         var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
         if(!myreg.test($('#registeredForm #mobile').val()))
         {
             $('#mobile').focus();
-            notific8(this,'请输入有效的11位手机号码！',3000);
+            $('.alert-danger').show();
+            $('#errorP').html("请输入有效的11位手机号码!");
+//            notific8(this,'请输入有效的11位手机号码！',3000);
             return;
         }
         //密码验证
         if($('#registeredForm #password').val()==null || $('#registeredForm #password').val().trim()==''){
             $('#registeredForm #password').focus();
-            notific8(this,"密码不能为空!",3000);
+            $('.alert-danger').show();
+            $('#errorP').html("密码不能为空!");
+//            notific8(this,"密码不能为空!",3000);
             return;
         }
         if($('#registeredForm #password').val().length < 6 || $('#registeredForm #password').val().length > 16){
             $('#registeredForm #password').focus();
-            notific8(this,"密码为6~16个字符!",3000);
+            $('.alert-danger').show();
+            $('#errorP').html("密码为6~16个字符!");
+//            notific8(this,"密码为6~16个字符!",3000);
             return;
         }
         if($('#registeredForm #password').val() != $('#registeredForm #password2').val()){
             $('#registeredForm #password2').focus();
-            notific8(this,"两次填写的密码不一致",3000);
+            $('.alert-danger').show();
+            $('#errorP').html("两次填写的密码不一致!");
+//            notific8(this,"两次填写的密码不一致",3000);
             return;
         }else{
             $.ajax({
@@ -148,7 +186,9 @@
                     console.log(data);
                     if(data>0){
                         $('#registeredForm #mobile').focus();
-                        notific8(this,"此手机号码已经存在!",3000);
+                        $('.alert-danger').show();
+                        $('#errorP').html("此手机号码已经存在!");
+//                        notific8(this,"此手机号码已经存在!",3000);
                         return;
                     }else{
                         var sex = '女';
@@ -158,7 +198,9 @@
                             url: "/users/registered",
                             dataType: 'json',
                             data: {sex: sex}, success: function (data) {
+                                $('.alert-danger').hide();
                                 $('#registeredDialog').modal("hide");
+//                                $('#successP').html("恭喜您注册成功!");
                                 notific8(this,"恭喜您注册成功！",3000);
                             }
                         };
@@ -169,4 +211,60 @@
         }
     });
 
+
+    var registeredValidation = function() {
+        var form2 = $('#registeredForm');
+
+        var error2 = $('.alert-danger', form2);
+        var success2 = $('.alert-success', form2);
+
+        form2.validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",  // validate all fields including form hidden input
+            rules: {
+                MOBILE: {
+                    rangelength: [11,11],
+                    number:true,
+                    required: true
+                },
+                PASSWORD: {
+                    rangelength: [6,16],
+                    required: true
+                },
+                PASSWORD2: {
+                    rangelength: [6,16],
+                    equalTo: "#password",
+                    required: true
+                }
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit
+                error2.show();
+//                Metronic.scrollTo(error2, -200);
+            },
+            errorPlacement: function (error, element) { // render error placement for each input type
+                var icon = $(element).parent('.input-icon').children('i');
+                icon.removeClass('fa-check').addClass("fa-warning");
+                icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group
+            },
+            unhighlight: function (element) { // revert the change done by hightlight
+
+            },
+            success: function (label, element) {
+                var icon = $(element).parent('.input-icon').children('i');
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                icon.removeClass("fa-warning").addClass("fa-check");
+            },
+            submitHandler: function (form) {
+                success2.show();
+                error2.hide();
+                form[0].submit(); // submit the form
+            }
+        });
+    }
 </script>
