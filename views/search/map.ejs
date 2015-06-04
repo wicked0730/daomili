@@ -1,0 +1,169 @@
+<link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-datepicker/css/datepicker3.css"/>
+<style>
+    .btn-sm, .btn-xs {
+        padding: 4px 10px 5px 10px !important;
+        font-size: 13px !important;
+        line-height: 1.5;
+    }
+    .bootstrap-select {
+        width: 100px !important;
+    }
+    .input-sm {
+        height: 20px!important;
+        padding: 5px 10px!important;
+        font-size: 12px!important;
+        line-height: 1.5;
+        border-radius: 3px!important;
+    }
+    .b-r5 {
+        border-radius: 5px!important;
+    }
+
+    .b-tb-l5 {
+        border-top-left-radius: 5px!important;
+        border-bottom-left-radius: 5px!important;
+    }
+    .b-tb-r5 {
+        border-top-right-radius: 5px!important;
+        border-bottom-right-radius: 5px!important;
+    }
+
+    .selectpicker {
+        border-radius: 5px!important;
+    }
+    .panel-body {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=C02e787d53661618778e0b62942871a4"></script>
+<div id="allmap"></div>
+<div class="panel panel-info b-r5" style="position: absolute; z-index: 999; top:70px;left: 20px; width: 400px">
+    <div class="panel-heading">
+        <div class="btn-group">
+            <div class="input-group" style="width: 254px">
+                <input type="text" class="form-control b-tb-l5" placeholder="输入标题">
+                    <a class="input-group-addon b-tb-r5">
+                    <i class="fa fa-search"></i>
+                    </a>
+            </div>
+        </div>
+        <div class="btn-group" style="margin-left: 9px">
+            <select class="selectpicker area" name="area">
+                <option>天河区</option>
+                <option>海珠区</option>
+                <option>Relish</option>
+            </select>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="btn-group" id="paidButton">
+            <button class="btn blue btn-md dropdown-toggle b-r5" type="button" data-toggle="dropdown"  style="width: 100px; overflow: hidden">
+                报酬 <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="javascript:;" style="color: red">
+                        不限 </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        100元以下 </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        100元-200元 </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        200元-300元 </a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <div class="input-group input-sm date date-picker" style="width: 100px!important;" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                <input type="text" class="form-control b-tb-l5" style="width: 100px;" placeholder="选择日期">
+                <span class="input-group-btn">
+                <button class="btn default b-tb-r5" type="button"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="btn-group" id="typeButton">
+            <button class="btn blue btn-md dropdown-toggle b-r5" type="button" data-toggle="dropdown"  style="width: 100px; overflow: hidden">
+                类型 <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="javascript:;" style="color: red">
+                        不限 </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        市场调查 </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        兼职 </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $.fn.selectpicker.defaults = {
+            noneSelectedText: '区域',
+            noneResultsText: '没有找到匹配项',
+            countSelectedText: '选中{1}中的{0}项',
+            maxOptionsText: ['超出限制 (最多选择{n}项)', '组选择超出限制(最多选择{n}组)'],
+            multipleSeparator: ', '
+        };
+        $('.selectpicker .area').selectpicker({
+            callback: function() {alert
+                alert('show!');
+            }
+        });
+        //报酬下拉
+        $('#paidButton a').on('click',function(){
+            //alert($(this).html());
+            $('#paidButton a').css('color','#555');
+            $(this).css('color','red');
+            if($(this).html().indexOf('不限')==-1)
+                $('#paidButton button').html($(this).html()+'<i class="fa fa-angle-down"></i>');
+            else
+                $('#paidButton button').html('报酬 <i class="fa fa-angle-down"></i>');
+        });
+        //日期
+        $('.date-picker').datepicker({
+            rtl: false,
+            orientation: "left",
+            autoclose: true,
+            language: 'zh-CN'
+        });
+        //类型下拉
+        $('#typeButton a').on('click',function(){
+            //alert($(this).html());
+            $('#typeButton a').css('color','#555');
+            $(this).css('color','red');
+            if($(this).html().indexOf('不限')==-1)
+                $('#typeButton button').html($(this).html()+'<i class="fa fa-angle-down"></i>');
+            else
+                $('#typeButton button').html('类型 <i class="fa fa-angle-down"></i>');
+        });
+        $('#allmap').height($(window).height()-$('.header').height());
+        $('#allmap').css('margin-top',$('.header').height());
+        var map = new BMap.Map("allmap",{enableMapClick:false});//构造底图时，关闭底图可点功能
+        //map.centerAndZoom(new BMap.Point(116.404, 39.915), 12);
+        map.centerAndZoom("广州",15);
+        map.enableScrollWheelZoom();
+        map.enableContinuousZoom();
+    });
+</script>
+<script src="/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-select/bootstrap-select.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+

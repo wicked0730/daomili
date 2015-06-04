@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var search_index = require('./routes/search/index');
 
 var entrust = require('./routes/entrust');
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/search/index', search_index);
 
 app.use('/entrust', entrust);
 
