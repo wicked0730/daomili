@@ -103,7 +103,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn blue" id="registeredBtn">注册</button>
+                <button type="button" class="btn blue" id="registeredBtn">注册</button>
                 <button type="button" class="btn default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -129,19 +129,18 @@
         //手机验证
 //        if($('#registeredForm').valid( )==false)
 //            return;
-
         var validation = true;
         if($('#registeredForm #mobile').val()==null || $('#registeredForm #mobile').val().trim()==''){
             $('#registeredForm #mobile').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("手机号码不能为空!");
+            $('#registeredForm .alert-danger').show();
+            $('#registeredForm #errorP').html("手机号码不能为空!");
 //            notific8(this,"手机号码不能为空!",3000);
             return;
         }
         if($('#registeredForm #mobile').val().length != 11){
             $('#registeredForm #mobile').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("请填写11位的手机号码!");
+            $('#registeredForm .alert-danger').show();
+            $('#registeredForm #errorP').html("请填写11位的手机号码!");
 //            notific8(this,"请填写11位的手机号码!",3000);
             return;
         }
@@ -149,30 +148,30 @@
         if(!myreg.test($('#registeredForm #mobile').val()))
         {
             $('#mobile').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("请输入有效的11位手机号码!");
+            $('#registeredForm .alert-danger').show();
+            $('#registeredForm #errorP').html("请输入有效的11位手机号码!");
 //            notific8(this,'请输入有效的11位手机号码！',3000);
             return;
         }
         //密码验证
         if($('#registeredForm #password').val()==null || $('#registeredForm #password').val().trim()==''){
             $('#registeredForm #password').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("密码不能为空!");
+            $('#registeredForm .alert-danger').show();
+            $('#registeredForm #errorP').html("密码不能为空!");
 //            notific8(this,"密码不能为空!",3000);
             return;
         }
         if($('#registeredForm #password').val().length < 6 || $('#registeredForm #password').val().length > 16){
             $('#registeredForm #password').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("密码为6~16个字符!");
+            $('#registeredForm .alert-danger').show();
+            $('#registeredForm #errorP').html("密码为6~16个字符!");
 //            notific8(this,"密码为6~16个字符!",3000);
             return;
         }
         if($('#registeredForm #password').val() != $('#registeredForm #password2').val()){
             $('#registeredForm #password2').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("两次填写的密码不一致!");
+            $('#registeredForm .alert-danger').show();
+            $('#registeredForm #errorP').html("两次填写的密码不一致!");
 //            notific8(this,"两次填写的密码不一致",3000);
             return;
         }else{
@@ -186,8 +185,8 @@
                     console.log(data);
                     if(data>0){
                         $('#registeredForm #mobile').focus();
-                        $('.alert-danger').show();
-                        $('#errorP').html("此手机号码已经存在!");
+                        $('#registeredForm .alert-danger').show();
+                        $('#registeredForm #errorP').html("此手机号码已经存在!");
 //                        notific8(this,"此手机号码已经存在!",3000);
                         return;
                     }else{
@@ -198,7 +197,7 @@
                             url: "/users/registered",
                             dataType: 'json',
                             data: {sex: sex}, success: function (data) {
-                                $('.alert-danger').hide();
+                                $('#registeredForm .alert-danger').hide();
                                 $('#registeredDialog').modal("hide");
 //                                $('#successP').html("恭喜您注册成功!");
                                 notific8(this,"恭喜您注册成功！",3000);
@@ -211,14 +210,13 @@
         }
     });
 
-
     var registeredValidation = function() {
-        var form2 = $('#registeredForm');
+        var registeredForm = $('#registeredForm');
 
-        var error2 = $('.alert-danger', form2);
-        var success2 = $('.alert-success', form2);
+        var registeredError = $('#registeredForm .alert-danger', registeredForm);
+        var registeredSuccess = $('#registeredForm .alert-success', registeredForm);
 
-        form2.validate({
+        registeredForm.validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block help-block-error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
@@ -240,8 +238,8 @@
                 }
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
-                error2.show();
-//                Metronic.scrollTo(error2, -200);
+                registeredError.show();
+//                Metronic.scrollTo(registeredError, -200);
             },
             errorPlacement: function (error, element) { // render error placement for each input type
                 var icon = $(element).parent('.input-icon').children('i');
@@ -261,10 +259,12 @@
                 icon.removeClass("fa-warning").addClass("fa-check");
             },
             submitHandler: function (form) {
-                success2.show();
-                error2.hide();
+                registeredSuccess.show();
+                registeredError.hide();
                 form[0].submit(); // submit the form
             }
         });
+
+
     }
 </script>

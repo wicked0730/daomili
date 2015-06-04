@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="form-group form-md-line-input">
-                        <label for="phoneNumber" class="col-md-3 control-label">手机</label>
+                        <label for="mobile" class="col-md-3 control-label">手机</label>
                         <div class="col-md-6">
                             <div class="input-icon right">
                                 <i class="fa"></i>
@@ -73,15 +73,15 @@
         var validation = true;
         if($('#loginForm #mobile').val()==null || $('#loginForm #mobile').val().trim()==''){
             $('#loginForm #mobile').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("手机号码不能为空!");
+            $('#loginForm .alert-danger').show();
+            $('#loginForm #errorP').html("手机号码不能为空!");
 //            notific8(this,"手机号码不能为空!",3000);
             return;
         }
         if($('#loginForm #mobile').val().length != 11){
             $('#mobile').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("请填写11位的手机号码!");
+            $('#loginForm .alert-danger').show();
+            $('#loginForm #errorP').html("请填写11位的手机号码!");
 //            notific8(this,"请填写11位的手机号码!",3000);
             return;
         }
@@ -89,23 +89,23 @@
         if(!myreg.test($('#loginForm #mobile').val()))
         {
             $('#mobile').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("请输入有效的11位手机号码!");
+            $('#loginForm .alert-danger').show();
+            $('#loginForm #errorP').html("请输入有效的11位手机号码!");
 //            notific8(this,'请输入有效的11位手机号码！',3000);
             return;
         }
         //密码验证
         if($('#loginForm #password').val()==null || $('#loginForm #password').val().trim()==''){
             $('#loginForm #password').focus();
-            $('.alert-danger').show();
-            $('#errorP').html("密码不能为空!");
+            $('#loginForm .alert-danger').show();
+            $('#loginForm #errorP').html("密码不能为空!");
 //            notific8(this,"密码不能为空!",3000);
             return;
         }
         if($('#loginForm #password').val().length < 6 || $('#loginForm #password').val().length > 16){
             $('#loginForm #password').focus()
-            $('.alert-danger').show();
-            $('#errorP').html("密码为6~16个字符!");
+            $('#loginForm .alert-danger').show();
+            $('#loginForm #errorP').html("密码为6~16个字符!");
 //            notific8(this,"密码为6~16个字符!",3000);
             return;
         } else{
@@ -116,15 +116,15 @@
 
                 }, success: function (data) {
                     if(data == 0){
-                        $('.alert-danger').show();
-                        $('#errorP').html("用户名或密码有误，请重新输入!");
+                        $('#loginForm .alert-danger').show();
+                        $('#loginForm #errorP').html("用户名或密码有误，请重新输入!");
 //                        notific8(this,"用户名或密码有误，请重新输入！",3000);
                         $('#loginForm #password').val('');
                         $('#loginForm #password').focus();
                         return;
                     }
                     $('#loginDialog').modal("hide");
-                    $('.alert-danger').hide();
+                    $('#loginForm .alert-danger').hide();
                     notific8(this,"欢迎"+$('#loginForm #mobile').val()+"回来！",3000);
                 }
             };
@@ -133,12 +133,12 @@
     });
 
     var loginValidation = function() {
-        var form2 = $('#loginForm');
-        form2.resetForm();
-        var error2 = $('.alert-danger', form2);
-        var success2 = $('.alert-success', form2);
+        var loginForm = $('#loginForm');
+        loginForm.resetForm();
+        var loginError = $('#loginForm .alert-danger', loginForm);
+        var loginSuccess = $('.alert-success', loginForm);
 
-        form2.validate({
+        loginForm.validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block help-block-error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
@@ -155,8 +155,8 @@
                 }
             },
             invalidHandler: function (event, validator) { //display error alert on form submit
-                error2.show();
-//                Metronic.scrollTo(error2, -200);
+                loginError.show();
+//                Metronic.scrollTo(loginError, -200);
             },
             errorPlacement: function (error, element) { // render error placement for each input type
                 var icon = $(element).parent('.input-icon').children('i');
@@ -176,8 +176,8 @@
                 icon.removeClass("fa-warning").addClass("fa-check");
             },
             submitHandler: function (form) {
-                success2.show();
-                error2.hide();
+                loginSuccess.show();
+                loginError.hide();
                 form[0].submit(); // submit the form
             }
         });

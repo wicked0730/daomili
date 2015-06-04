@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var entrust = require('./routes/entrust');
+
 var app = express();
 
 global.logger = require("./utils/logger.js");
@@ -15,8 +17,12 @@ global.moment = require('moment');
 global.moment.locale('zh-cn');
 global.DB = require("./utils/dbutil.js").Instance();
 
+//用户
 DB.define({key:'User',name:'DML_USER',fields:['ID','CREATEDATE','CREATOR','LASTUPTDATE','LASTUPTUSER','VERSION','EMAIL','FULLNAME','IDCARD','MOBILE','PASSWORD','PHONE','SEX','USERNAME','USERSTATUS','STATUS','ORGCODE','RAMARK','DEPARTMENT','AGE']});
+//委托
+DB.define({key:'Entrust',name:'DML_ENTRUST',fields:['ID','COMPANYNAME','CONTACT','MOBILE','QQ','EMAIL','CREATEDATE','CREATOR','LASTUPTDATE','LASTUPTUSER','VERSION','STATUS']});
 
+//用于copy  DB.define({key:'User',name:'DML_EMPTY',fields:['ID','CREATEDATE','CREATOR','LASTUPTDATE','LASTUPTUSER','VERSION','STATUS']});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+app.use('/entrust', entrust);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
